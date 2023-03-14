@@ -28,14 +28,9 @@ module.exports.ValidSignature = async (req) => {
     try {
         const authHeader = req.headers['Authorization'];
         const token = authHeader && authHeader.split(" ")[1];
-        if(!token){
-
-        }
         const decoded = jwt.verify(token, APP_SECRET);
-        if(!decoded){
-
-        }
         req.user = decoded;
+        
         return true;
     } catch (error) {
         console.log(error);
