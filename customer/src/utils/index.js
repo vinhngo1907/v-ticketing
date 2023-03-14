@@ -11,7 +11,7 @@ module.exports.GeneratePassword = async (password, salt) => {
     return await bcrypt.hash(password, salt)
 }
 
-module.exports.ValidPassword = async (enteredPassword, savedPassword, salt) => {
+module.exports.ValidatePassword = async (enteredPassword, savedPassword, salt) => {
     return (await this.GeneratePassword(enteredPassword, salt) === savedPassword)
 }
 
@@ -24,13 +24,13 @@ module.exports.GenerateSignature = async (payload) => {
     }
 }
 
-module.exports.ValidSignature = async (req) => {
+module.exports.ValidateSignature = async (req) => {
     try {
         const authHeader = req.headers['Authorization'];
         const token = authHeader && authHeader.split(" ")[1];
         const decoded = jwt.verify(token, APP_SECRET);
         req.user = decoded;
-        
+
         return true;
     } catch (error) {
         console.log(error);
@@ -45,3 +45,11 @@ module.exports.FormateData = (data) => {
         throw new Error("Data Not found!");
     }
 };
+
+module.exports.PublicMessage = async (channel, service, msg) => {
+
+}
+
+module.exports.SubscribeMessage = async (channel, service) => {
+
+}
