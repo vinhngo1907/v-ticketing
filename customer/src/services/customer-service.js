@@ -11,7 +11,7 @@ class CustomerService {
         if (customer) {
             const isValid = await ValidatePassword(password, customer.password, customer.salt);
             if (isValid) {
-                const token = GenerateSignature({ _id: customer._id, email: customer.email });
+                const token = GenerateSignature({ _id: customer._id, email: customer.email, role: customer.role });
                 return FormateData({ token, id: customer._id })
             }
         }
@@ -22,7 +22,9 @@ class CustomerService {
         let salt = await GenerateSalt();
         const userPassword = await GeneratePassword(password, salt);
         const existingCustomer = await this.repository.CreateCustomer({ email, password: userPassword, phone, salt });
-        const token = await GenerateSignature({ email: existingCustomer.email, _id: existingCustomer._id });
+        const token = await GenerateSignature({
+            email: existingCustomer.email, _id: existingCustomer._id, role: existingCustomer.role
+        });
         return FormateData({ id: existingCustomer._id, token })
     }
 }

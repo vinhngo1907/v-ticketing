@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const amqplib = require("amqplib");
 const { APP_SECRET, MSG_QUEUE_URL } = require("../configs");
+const { CustomerModel } = require("../database/models");
 
 module.exports.GenerateSalt = async () => {
     return await bcrypt.genSalt();
@@ -29,9 +30,29 @@ module.exports.ValidateSignature = async (req) => {
         const authHeader = req.headers['Authorization'];
         const token = authHeader && authHeader.split(" ")[1];
         const decoded = jwt.verify(token, APP_SECRET);
+        const user = await CustomerModel
+            .findOne({ _id: decoded._id, email: decoded.email })
+            .select("-password -createdAt -updatedAt");
+        if (!user) {
+            return false;
+        }
+
         req.user = decoded;
 
         return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+module.exports.ValidateAdmin = async (req) => {
+    try {
+        const { user } = req;
+        if (user && user.role === "admin") {
+            return true;
+        }
+        return false;
     } catch (error) {
         console.log(error);
         return false;
