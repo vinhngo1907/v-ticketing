@@ -8,7 +8,7 @@ const {
     BASE_URL,
     EXCHANGE_NAME,
     MSG_QUEUE_URL,
-} = require("../config");
+} = require("../configs");
 
 //Utility functions
 module.exports.GenerateSalt = async () => {

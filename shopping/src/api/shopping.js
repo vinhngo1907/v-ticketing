@@ -1,5 +1,5 @@
 const ShoppingService = require("../services/shopping-service");
-const UserAuth = require("./middeware");
+// const UserAuth = require("./middleware");
 const { SubscribeMessage } = require('../utils');
 
 module.exports = (app, channel) => {
