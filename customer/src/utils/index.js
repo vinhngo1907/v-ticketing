@@ -9,7 +9,12 @@ module.exports.GenerateSalt = async () => {
 }
 
 module.exports.GeneratePassword = async (password, salt) => {
-    return await bcrypt.hash(password, salt)
+    try {
+        return await bcrypt.hash(password, salt);
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
 }
 
 module.exports.ValidatePassword = async (enteredPassword, savedPassword, salt) => {
