@@ -7,5 +7,33 @@ services:
     container_name: nosql-db
     volumes:
       - ./db/:/data/db
+  customer:
+    build:
+      dockerfile: Dockerfile
+      context: ./customer
+    ports:
+      - 8001:8001
+    environment:
+      - PORT=8001
+    depends_on:
+      - nosql-db
   products:
     build:
+      dockerfile: Dockerfile
+      context: ./products
+    ports:
+      - 8002:8002
+    environment:
+      - PORT=8002
+    depends_on:
+      - nosql-db
+  shopping:
+    build:
+      dockerfile: Dockerfile
+      context: ./shopping
+    ports:
+      - 8003:8003
+    environment:
+      - PORT=8003
+    depends_on:
+      - nosql-db
