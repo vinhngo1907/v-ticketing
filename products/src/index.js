@@ -1,12 +1,12 @@
 const express = require('express');
 const { PORT } = require('../src/configs');
 const { dataConnection } = require('../src/database');
-const expressApp = require('./');
+const expressApp = require('./express-app');
 
 const StartServer = async () => {
     const app = express();
 
-    await dataConnection();
+    dataConnection();
 
     await expressApp(app);
 
