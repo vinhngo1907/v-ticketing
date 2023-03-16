@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vinh Ngo <vintrungngo1907@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.8.0",

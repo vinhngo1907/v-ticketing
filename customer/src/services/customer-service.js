@@ -2,7 +2,7 @@ const { CustomerRepository } = require("../database");
 const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } = require('../utils');
 
 class CustomerService {
-    constructor() {
+    constructor(){
         this.repository = new CustomerRepository();
     }
     async Login(userInputs) {
