@@ -1,3 +1,4 @@
 module.exports = {
-    productModel: require("./Product")
+    productModel: require("./Product"),
+    categoryModel: require("./Category")
 }
