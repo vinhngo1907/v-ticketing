@@ -3,11 +3,18 @@ const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, Validate
 
 class CustomerService {
     constructor() {
-        this.respository = new CustomerRepository();
+        this.repository = new CustomerRepository();
     }
     async Login(userInputs) {
         const { email, password } = userInputs;
-        const existingCustomer = await this.re
+        const customer = await this.repository.FindCustomer({ email });
+        if (customer) {
+            const isValid = await ValidatePassword(password, customer.password, customer.salt);
+            if (isValid) {
+                const token = GenerateSignature({ _id: customer._id, email: customer.email });
+                return FormateData({ token, id: customer._id })
+            }
+        }
     }
 
     async Register(userInputs) {

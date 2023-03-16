@@ -26,7 +26,7 @@ class CustomerRepository {
     async FindCustomer({ email }) {
         const customer = await CustomerModel.findOne({
             email
-        }).select("-password -createdAt -updatedAt");
+        }).select("-createdAt -updatedAt");
         return customer;
     }
 
