@@ -2,7 +2,7 @@ const { CustomerRepository } = require("../database");
 const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } = require('../utils');
 
 class CustomerService {
-    constructor(){
+    constructor() {
         this.repository = new CustomerRepository();
     }
     async Login(userInputs) {
@@ -18,10 +18,11 @@ class CustomerService {
     }
 
     async Register(userInputs) {
-        const { email, password, phone } = userInputs;
-        let salt = await GenerateSalt();
+        const { email, fullname, password, phone } = userInputs;
+        const salt = await GenerateSalt();
         const userPassword = await GeneratePassword(password, salt);
-        const existingCustomer = await this.repository.CreateCustomer({ email, password: userPassword, phone, salt });
+        console.log({userPassword})
+        const existingCustomer = await this.repository.CreateCustomer({ email, fullname, password: userPassword, phone, salt });
         const token = await GenerateSignature({
             email: existingCustomer.email, _id: existingCustomer._id, role: existingCustomer.role
         });
