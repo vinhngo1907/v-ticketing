@@ -1,0 +1,4 @@
+# dependencies
+db
+/.vscode
+.DS_Store

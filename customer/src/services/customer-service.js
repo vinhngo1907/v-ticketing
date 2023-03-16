@@ -1,13 +1,13 @@
 const { CustomerRepository } = require("../database");
 const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } = require('../utils');
 
-
 class CustomerService {
     constructor() {
         this.respository = new CustomerRepository();
     }
     async Login(userInputs) {
         const { email, password } = userInputs;
+        const existingCustomer = await this.re
     }
 
     async Register(userInputs) {

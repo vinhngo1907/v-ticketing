@@ -1,4 +1,4 @@
 module.exports = {
-    dataConnection: require("../database/database"),
-
+    dataConnection: require("./database"),
+    ShoppingRepository: require("./repository")
 }

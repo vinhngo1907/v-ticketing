@@ -1,5 +1,6 @@
-const ShoppingModel = require("../models")
+const ShoppingModel = require("../models");
+
 class ShoppingReposity{
 
 }
-module.exports = ShoppingReposity;
+module.exports = ShoppingReposity; 
