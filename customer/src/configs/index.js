@@ -8,10 +8,10 @@ if (process.env.NODE_ENV !== "prod") {
 }
 
 module.exports = {
-    BASE_URL: "/api",
-    PORT: process.env.PORT || 8001,
-    DB_URL: process.env.MONGO_URL || 'mongodb://localhost:27017/v-ecommerce',
+    PORT: process.env.PORT,
+    DB_URL: process.env.MONGODB_URI,
     APP_SECRET: process.env.APP_SECRET,
+    BASE_URL: process.env.BASE_URL,
     EXCHANGE_NAME: process.env.EXCHANGE_NAME,
     MSG_QUEUE_URL: process.env.MSG_QUEUE_URL,
     CUSTOMER_SERVICE: "customer_service",
