@@ -12,6 +12,8 @@
   "author": "Vinh Ngo <vintrungngo1907@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@sentry/node": "^7.20.0",
+    "@sentry/tracing": "^7.20.0",
     "amqplib": "^0.8.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
