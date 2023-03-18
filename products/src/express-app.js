@@ -4,7 +4,6 @@ const { product, appEvents } = require('./api');
 // const { CreateChannel, SubscribeMessage } = require('./utils')
 
 module.exports = async (app) => {
-
     app.use(express.json());
     app.use(cors());
     app.use(express.static(__dirname + '/public'))
@@ -14,8 +13,7 @@ module.exports = async (app) => {
 
     // const channel = await CreateChannel()
 
-
-    product(app, channel);
+    product(app, channel = "");
     // error handling
 
 }
