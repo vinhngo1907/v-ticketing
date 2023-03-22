@@ -32,7 +32,7 @@ module.exports.GenerateSignature = async (payload) => {
 
 module.exports.ValidateSignature = async (req) => {
     try {
-        const authHeader = req.headers['Authorization'];
+        const authHeader = req.header('Authorization');
         const token = authHeader && authHeader.split(" ")[1];
         const decoded = jwt.verify(token, APP_SECRET);
         const user = await CustomerModel
