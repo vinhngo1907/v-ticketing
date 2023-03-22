@@ -27,15 +27,16 @@ module.exports.GenerateSignature = async (payload) => {
 
 module.exports.ValidateSignature = async (req) => {
     try {
-        const authHeader = req.headers['Authorization'];
+        const authHeader = req.header('Authorization');
         const token = authHeader && authHeader.split(" ")[1];
         const decoded = jwt.verify(token, APP_SECRET);
-        const user = await CustomerModel
-            .findOne({ _id: decoded._id, email: decoded.email })
-            .select("-password -createdAt -updatedAt");
-        if (!user) {
-            return false;
-        }
+        console.log({decoded})
+        // const user = await CustomerModel
+        //     .findOne({ _id: decoded._id, email: decoded.email })
+        //     .select("-password -createdAt -updatedAt");
+        // if (!user) {
+        //     return false;
+        // }
 
         req.user = decoded;
 

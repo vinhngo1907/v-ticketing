@@ -21,26 +21,26 @@ module.exports.ValidatePassword = async (enteredPassword, savedPassword, salt) =
     return (await this.GeneratePassword(enteredPassword, salt) === savedPassword)
 }
 
-module.exports.ValidateSignature = async (req) => {
-    try {
-        const authHeader = req.header('Authorization');
-        const token = authHeader && authHeader.split(" ")[1];
-        const decoded = jwt.verify(token, APP_SECRET);
-        const user = await CustomerModel
-            .findOne({ _id: decoded._id, email: decoded.email })
-            .select("-password -createdAt -updatedAt");
-        if (!user) {
-            return false;
-        }
+// module.exports.ValidateSignature = async (req) => {
+//     try {
+//         const authHeader = req.header('Authorization');
+//         const token = authHeader && authHeader.split(" ")[1];
+//         const decoded = jwt.verify(token, APP_SECRET);
+//         const user = await CustomerModel
+//             .findOne({ _id: decoded._id, email: decoded.email })
+//             .select("-password -createdAt -updatedAt");
+//         if (!user) {
+//             return false;
+//         }
 
-        req.user = decoded;
+//         req.user = decoded;
 
-        return true;
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
-}
+//         return true;
+//     } catch (error) {
+//         console.log(error);
+//         return false;
+//     }
+// }
 
 module.exports.ValidateAdmin = async (req) => {
     try {

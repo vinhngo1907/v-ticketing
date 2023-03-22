@@ -8,7 +8,7 @@ module.exports = (app) => {
         const { payload } = req.body;
 
         //handle subscribe events
-        service.SubscribeEvents(payload);
+        // service.SubscribeEvents(payload);
 
         console.log("============= Shopping ================");
         console.log(payload);
