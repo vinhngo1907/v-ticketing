@@ -1,5 +1,5 @@
 module.exports = {
     dataConnection: require("./database"),
-    productRepository: require("./repository/product-repository"),
-    categoryRepository: require("./repository/category-repository"),
+    ProductRepository: require("./repository/product-repository"),
+    CategoryRepository: require("./repository/category-repository"),
 }
