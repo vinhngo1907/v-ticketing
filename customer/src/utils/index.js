@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const amqplib = require("amqplib");
 const { APP_SECRET, MSG_QUEUE_URL } = require("../configs");
 const { CustomerModel } = require("../database/models");
-const {GenerateActiveSignature, GenerateRefreshSignature, GenerateSignature} = require("./tokens");
+
 module.exports.GenerateSalt = async () => {
     return await bcrypt.genSalt();
 }
@@ -63,12 +63,6 @@ module.exports.FormateData = (data) => {
     }
 };
 
-module.exports.PublicMessage = async (channel, service, msg) => {
+module.exports.Signature = require("./tokens");
 
-}
-
-module.exports.SubscribeMessage = async (channel, service) => {
-
-}
-
-module.exports.Signature = require("./tokens")
+module.exports.Message = require("./security");
