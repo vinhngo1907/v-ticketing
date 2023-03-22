@@ -1,5 +1,6 @@
 const { APP_SECRET, APP_ACTIVE_SECRET, APP_RF_SECRET } = require("../../configs");
 const jwt = require("jsonwebtoken");
+const { CustomerModel } = require("../../database/models");
 
 class Signature {
     async GenerateRefreshSignature(payload){
@@ -28,6 +29,27 @@ class Signature {
             console.log(error);
             return false;
         }
+    }
+    async ValidateSignature(req){
+        try {
+            const authHeader = req.header('Authorization');
+            const token = authHeader && authHeader.split(" ")[1];
+            const decoded = jwt.verify(token, APP_SECRET);
+            const user = await CustomerModel
+                .findOne({ _id: decoded._id, email: decoded.email })
+                .select("-password -createdAt -updatedAt");
+            if (!user) {
+                return false;
+            }
+    
+            req.user = decoded;
+    
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    
     }   
 }
 

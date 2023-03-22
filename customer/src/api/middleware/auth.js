@@ -1,7 +1,8 @@
-const { ValidateSignature } = require("../../utils");
+const { Signature } = require("../../utils");
+const signature = new Signature();
 
 module.exports = async (req, res, next) => {
-    const isAuthorized = await ValidateSignature(req);
+    const isAuthorized = await signature.ValidateSignature(req);
 
     if (isAuthorized) {
         return next();
