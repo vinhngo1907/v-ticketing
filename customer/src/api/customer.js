@@ -24,7 +24,8 @@ module.exports = (app, channel = "") => {
     });
 
     app.post(BASE_URL + "/logout", UserAuth, async (req, res) => {
-
+        const { data } = await service.LogoutCustomer(req, res);
+        res.json(data);
     });
 
     app.post(BASE_URL + "/refresh-token", async (req, res) => {

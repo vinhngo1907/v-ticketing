@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const amqplib = require("amqplib");
 const { APP_SECRET, MSG_QUEUE_URL } = require("../configs");
 const { CustomerModel } = require("../database/models");
-
+const {GenerateActiveSignature, GenerateRefreshSignature, GenerateSignature} = require("./tokens");
 module.exports.GenerateSalt = async () => {
     return await bcrypt.genSalt();
 }
@@ -19,15 +19,6 @@ module.exports.GeneratePassword = async (password, salt) => {
 
 module.exports.ValidatePassword = async (enteredPassword, savedPassword, salt) => {
     return (await this.GeneratePassword(enteredPassword, salt) === savedPassword)
-}
-
-module.exports.GenerateSignature = async (payload) => {
-    try {
-        return await jwt.sign(payload, APP_SECRET, { expiresIn: "30d" });
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
 }
 
 module.exports.ValidateSignature = async (req) => {
@@ -79,3 +70,5 @@ module.exports.PublicMessage = async (channel, service, msg) => {
 module.exports.SubscribeMessage = async (channel, service) => {
 
 }
+
+module.exports.Signature = require("./tokens")

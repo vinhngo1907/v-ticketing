@@ -16,4 +16,7 @@ module.exports = {
     MSG_QUEUE_URL: process.env.MSG_QUEUE_URL,
     CUSTOMER_SERVICE: "customer_service",
     SHOPPING_SERVICE: "shopping_service",
+    AUTH_PATH: process.env.AUTH_PATH,
+    APP_RF_SECRET: process.env.APP_RF_SECRET,
+    APP_ACTIVE_SECRET: process.env.APP_ACTIVE_SECRET,
 };
