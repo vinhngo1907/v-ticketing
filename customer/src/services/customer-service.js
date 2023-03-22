@@ -13,7 +13,7 @@ class CustomerService {
             if (isValid) {
                 const token = await GenerateSignature({
                     _id: customer._id, email: customer.email, role: customer.role
-                });                
+                });
                 return FormateData({ id: customer._id, token })
             }
         }
@@ -30,8 +30,17 @@ class CustomerService {
         return FormateData({ id: newCustomer._id, token })
     }
 
-    async RefreshToken(){
-        
+    async RefreshToken(res) {
+        const rf_token = req.cookies['v-token'];
+        if(rf_token){
+            
+        }
+    }
+
+    async GetCustomer(user) {
+        const { _id } = user;
+        const customer = await this.repository.FindCustomerById({ id: _id });
+        return FormateData(customer);
     }
 }
 
