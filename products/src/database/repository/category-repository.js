@@ -12,8 +12,8 @@ class CategoryRepository {
         return updatedCategory;
     }
 
-    async DeleteCateogry({id}){
-        const deletedCategory = await categoryModel.findOneAndDelete({_id: id});
+    async DeleteCateogry({ id }) {
+        const deletedCategory = await categoryModel.findOneAndDelete({ _id: id });
         return deletedCategory;
     }
 }

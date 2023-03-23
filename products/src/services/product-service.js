@@ -1,8 +1,11 @@
-const ProductRepository = require("../database/repository/product-repository");
+const { ProductRepository } = require("../database/");
 
 class ProductService {
     constructor() {
         this.productRepository = new ProductRepository();
+    }
+    async CreateProduct() {
+
     }
 }
 

@@ -1,22 +1,25 @@
-const { ProductModel } = require("../models");
+'use strict'
+const ApiFeatures = require("../../api/libs");
+const { productModel } = require("../models");
 
 class ProductRepository {
-    async Products() {
-        return await ProductModel.find();
+    constructor(){
+        this.apiFeatures = new ApiFeatures();
+    }
+    async CreateProduct({ name }) {
+        const category = await new productModel({ name });
+        await category.save();
+        return category;
     }
 
-    async FindById(id) {
-        return await ProductModel.findById(id);
+    async UpdateProduct({ id, name }) {
+        const updatedProduct = await productModel.findOneAndUpdate({ _id: id }, { name }, { runValidators: true, new: true });
+        return updatedProduct;
     }
 
-    async FindByCategory(category) {
-        const prodcts = await ProductModel.find({ type: category });
-        return prodcts;
-    }
-
-    async FindSelectedProducts(selectedIds) {
-        const products = await ProductModel.find().where('_id').in(selectedIds.map(_id => _id)).exec();
-        return products;
+    async DeleteCateogry({ id }) {
+        const deletedProduct = await productModel.findOneAndDelete({ _id: id });
+        return deletedProduct;
     }
 }
 

@@ -1,25 +1,26 @@
-const {CategoryRepository} =require("../database");
+const { CategoryRepository } = require("../database");
 const { FormateData } = require("../utils");
 
-class CategoryService{
-    constructor(){
+class CategoryService {
+    constructor() {
         this.categoryRepository = new CategoryRepository();
     }
-    async CreateCategory(categoryInputs){
-        const {name} = categoryInputs;
-        if(name){
-            const category = await this.categoryRepository.CreateCategory({name});
+    
+    async CreateCategory(categoryInputs) {
+        const { name } = categoryInputs;
+        if (name) {
+            const category = await this.categoryRepository.CreateCategory({ name });
             return FormateData(category);
         }
     }
-    async UpdateCategory(){
-        
+    async UpdateCategory() {
+
     }
-    async DeleteCategory(){
-        
+    async DeleteCategory() {
+
     }
-    async GetAllCategories(){
-        
+    async GetAllCategories() {
+
     }
 }
 
