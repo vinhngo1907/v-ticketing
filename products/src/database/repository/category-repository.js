@@ -1,6 +1,10 @@
 const { categoryModel } = require("../models");
 
 class CategoryRepository {
+    async GetAllCategories(){
+        const categories = await categoryModel.find();
+        return categories
+    }
     async CreateCategory({ name }) {
         const category = await new categoryModel({ name });
         await category.save();
