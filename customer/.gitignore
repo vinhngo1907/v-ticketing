@@ -1,6 +1,5 @@
 /node_modules
 dump.rdb
 npm-debug.log
-# *.env*
-# package-lock.json
+*.env.*
 /src/data.json
