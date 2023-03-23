@@ -30,7 +30,7 @@ module.exports.ValidateSignature = async (req) => {
         const authHeader = req.header('Authorization');
         const token = authHeader && authHeader.split(" ")[1];
         const decoded = jwt.verify(token, APP_SECRET);
-        console.log({decoded})
+        // console.log({decoded})
         // const user = await CustomerModel
         //     .findOne({ _id: decoded._id, email: decoded.email })
         //     .select("-password -createdAt -updatedAt");
