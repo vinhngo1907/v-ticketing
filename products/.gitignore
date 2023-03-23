@@ -2,5 +2,4 @@
 dump.rdb
 npm-debug.log
 *.env*
-package-lock.json
 /src/data.json
