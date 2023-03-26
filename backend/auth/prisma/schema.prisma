@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Exchange {
+  id                  Int     @default(autoincrement()) @id
+  username            String?
+  email               String?
+  token               String?
+  created             DateTime
+  createAt            BigInt
+  updateAt            BigInt
+}
