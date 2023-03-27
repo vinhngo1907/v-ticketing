@@ -15,6 +15,11 @@ export class UserController {
     @Post('/api/auth/register')
     @UsePipes()
     async register(){
+        try{
 
+        }catch(err: any){
+            console.log(err);
+            throw err;
+        }
     }
 }
