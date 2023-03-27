@@ -1,4 +1,4 @@
-import { Controller, Inject, UseGuards, Get } from '@nestjs/common';
+import { Controller, Inject, UseGuards, Get, Post, UsePipes } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { UserService } from './user.service';
 
@@ -11,4 +11,10 @@ export class UserController {
     @Get()
     // @UseGuards(new AuthGuard())
     showAllUsers() {}
+
+    @Post('/api/auth/register')
+    @UsePipes()
+    async register(){
+
+    }
 }

@@ -11,7 +11,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Exchange {
+model user {
   id                  Int     @default(autoincrement()) @id
   username            String?
   email               String?
