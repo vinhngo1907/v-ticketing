@@ -1,17 +1,24 @@
-import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete, Patch, Query } from '@nestjs/common';
+import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete, Patch, Query, OnModuleInit } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { Logger } from 'kafkajs';
 import { of, switchMap } from 'rxjs';
+import { KafkaService } from 'src/kafka/kafka.service';
 import { AuthGuard } from 'src/shared/auth.guard';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
-export class UserController {
+export class UserController implements OnModuleInit{
+    private loggerService: Logger
     constructor(
         private userService: UserService,
-        @Inject('CLIENT_SERVICE') private readonly client: ClientProxy,
-        @Inject('PRODUCT_SERVICE') private readonly client1: ClientProxy
-    ) { }
+        private kafkaService: KafkaService
+        // @Inject('CLIENT_SERVICE') private readonly client: ClientProxy,
+        // @Inject('PRODUCT_SERVICE') private readonly client1: ClientProxy
+    ) {}
+    async onModuleInit() {
+       
+    }
     @Get('/')
     @UseGuards(new AuthGuard())
     showAllUsers(

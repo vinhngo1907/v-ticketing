@@ -18,4 +18,15 @@ export class KafkaService {
             }as any
         })
     }
+    async CheckAndCreateTopic(topic: string){
+        const admin = this.kafkaClient.admin();
+        await admin.connect();
+        const listTopic = await admin.listTopics();
+        if (!listTopic.includes(topic)) {
+            await admin.createTopics({
+                topics: [{ topic: topic }]
+            });
+        }
+        await admin.disconnect();
+    }
 }

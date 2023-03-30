@@ -1,13 +1,30 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Inject, Query, UseGuards, OnModuleInit } from '@nestjs/common';
 import { UserService } from './user.service';
 import { pipe, switchMap, of } from 'rxjs';
 import { AuthGuard } from 'src/shared/auth.guard';
 import { ClientProxy, EventPattern } from '@nestjs/microservices';
+import { DatabaseService } from 'src/database/database.service';
+import { HttpService } from '@nestjs/axios';
+import { KafkaService } from 'src/kafka/kafka.service';
+import { Logger } from 'kafkajs';
 
 @Controller('user')
-export class UserController {
-    constructor(private userService: UserService) { }
-
+export class UserController implements OnModuleInit{
+    private loggerService: Logger;
+    constructor(private userService: UserService, 
+        // @Inject('CLIENT_SERVICE') private readonly client: ClientProxy
+        private databaseService: DatabaseService,
+        private httpService: HttpService,
+        private kafkaService: KafkaService
+    ) { }
+    async onModuleInit() {
+        try {
+            // ----------------- listening on topic update status exchange qoc --------------- //
+          
+        } catch (err) {
+            this.loggerService.error("An error while init the module exchange", err);
+        }
+    }
     @Get()
     @UseGuards(new AuthGuard())
     showAllUser(

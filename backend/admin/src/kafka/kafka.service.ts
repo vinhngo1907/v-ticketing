@@ -19,14 +19,22 @@ export class KafkaService {
     }
 
     async CheckAndCreateTopic(topic: string) {
-
+        const admin = this.kafkaClient.admin();
+        await admin.connect();
+        const listTopic = await admin.listTopics();
+        if (!listTopic.includes(topic)) {
+            await admin.createTopics({
+                topics: [{ topic: topic }]
+            });
+        }
+        await admin.disconnect();
     }
 
     async SendMessage(topic: string, message: string) {
 
     }
 
-    async GetUser(){
-        
+    async GetUser() {
+
     }
 }
