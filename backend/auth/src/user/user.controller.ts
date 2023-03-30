@@ -1,6 +1,8 @@
-import { Controller, Inject, UseGuards, Get, Post, UsePipes } from '@nestjs/common';
+import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
+const jwt = require("json")
 
 @Controller('user')
 export class UserController {
@@ -10,15 +12,44 @@ export class UserController {
     ) { }
     @Get()
     // @UseGuards(new AuthGuard())
-    showAllUsers() {}
+    showAllUsers() { }
 
-    @Post('/api/auth/register')
+    @Post('/register')
     @UsePipes()
-    async register(){
-        try{
+    async register(
+        @Body() ResponseBody: UserDTO
+    ) {
+        try {
+            const user = await this.userService.register(ResponseBody);
+            return user;
+        } catch (err: any) {
+            // console.log(err);
+            throw err;
+        }
+    }
 
+    @Post('/login')
+    @UsePipes()
+    async login(@Body() ResponseBody: UserDTO) {
+        try {
+            const user = await this.userService.login(ResponseBody);
+            return user;
+        } catch (err: any) {
+            // console.log(err);
+            throw err;
+        }
+    }
+
+    @Put('/:id')
+    @UsePipes()
+    async update(
+        @Param('id') id: number,
+        @Body() ResponseBody: UserDTO){
+        try{
+            const updatedUser = await this.userService.update(id, ResponseBody);
+            return updatedUser;
         }catch(err: any){
-            console.log(err);
+            // console.log(err);
             throw err;
         }
     }

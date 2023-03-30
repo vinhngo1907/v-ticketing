@@ -22,7 +22,43 @@ export class UserService implements OnModuleInit {
 	}
 	async register(data: UserDTO) {
 		try {
-		} catch (err) {
+			const { username, password } = data;
+			const newUser = await this.databaseService.user.create({
+				data: {
+					username,
+					password,
+				}
+			});
+
+			return newUser;
+		} catch (err: any) {
+			throw err;
+		}
+	}
+
+	async login(data: UserDTO) {
+		try {
+			const { username, password } = data;
+			// const user = await user
+		} catch (err: any) {
+			throw err;
+		}
+	}
+
+	async update(id: number, data: UserDTO) {
+		try {
+			const user = await this.databaseService.user.findUnique({ where: { id: id } });
+			if (!user) {
+
+			}
+			const updatedUser = await this.databaseService.user.update({
+				where: { id: id }, data: {
+					...data
+				}
+			});
+
+			return updatedUser;
+		} catch (err: any) {
 			throw err;
 		}
 	}
