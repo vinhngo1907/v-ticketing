@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
+import { Injectable, OnModuleInit, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { UserDTO } from './user.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -47,16 +47,18 @@ export class UserService implements OnModuleInit {
 
 	async update(id: number, data: UserDTO) {
 		try {
-			const user = await this.databaseService.user.findUnique({ where: { id: id } });
-			if (!user) {
-
-			}
 			const updatedUser = await this.databaseService.user.update({
-				where: { id: id }, data: {
+				data: {
 					...data
+				},
+				where: {
+					id: id
 				}
 			});
-
+			
+			if (!updatedUser) {
+				throw new HttpException('This user is not exists', HttpStatus.BAD_REQUEST);
+			}
 			return updatedUser;
 		} catch (err: any) {
 			throw err;

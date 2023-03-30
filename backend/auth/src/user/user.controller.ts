@@ -2,7 +2,6 @@ import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put } 
 import { ClientProxy } from '@nestjs/microservices';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
-const jwt = require("json")
 
 @Controller('user')
 export class UserController {
@@ -23,7 +22,7 @@ export class UserController {
             const user = await this.userService.register(ResponseBody);
             return user;
         } catch (err: any) {
-            // console.log(err);
+            console.log(err);
             throw err;
         }
     }
@@ -35,21 +34,21 @@ export class UserController {
             const user = await this.userService.login(ResponseBody);
             return user;
         } catch (err: any) {
-            // console.log(err);
+            console.log(err);
             throw err;
         }
     }
 
-    @Put('/:id')
+    @Put('/update/:id')
     @UsePipes()
     async update(
         @Param('id') id: number,
         @Body() ResponseBody: UserDTO){
         try{
-            const updatedUser = await this.userService.update(id, ResponseBody);
+            const updatedUser = await this.userService.update(Number(id), ResponseBody);
             return updatedUser;
         }catch(err: any){
-            // console.log(err);
+            console.log(err);
             throw err;
         }
     }
