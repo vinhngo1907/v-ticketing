@@ -1,20 +1,24 @@
 @serverUrl = http://localhost:4000/user
 
+GET {{serverUrl}}
+Content-Type: application/json
+
+###
 POST {{serverUrl}}/register
 Content-Type: application/json
 
 {
-  "email":"vinhngotrung1999@gmail.com",
-  "fullname":"Ngô Trung Vinh",
-  "username": "vinhngo",
+  "email":"vinhtrungngo@yahoo.com",
+  "fullname":"Koo kuu",
+  "username": "immavigga",
   "password": "123456"
 }
 ###
 
-PUT {{serverUrl}}/update/1
+PUT {{serverUrl}}/update/2
 Content-Type: application/json
 
 {
-  "email":"vinhngotrung1999@gmail.com",
-  "fullname":"Ngô Trung Vinh"
+  "email":"vinhtrungngo@gmail.com",
+  "fullname":"Koo kuu"
 }

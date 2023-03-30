@@ -21,10 +21,31 @@ export class UserService implements OnModuleInit {
 			this.loggerService.error("An error while init the module exchange", err);
 		}
 	}
-	showAll() {
-		// const users = await this.databaseService.user.findMany();
-		// console.log({users});
-		return from(this.databaseService.user.findMany())
+	showAll(
+		page: number = 1,
+		limit: number = 10,
+		status: string = undefined,
+		order_by: string = 'desc'
+	) {
+		if (limit < 0 || page < 1) {
+			throw new HttpException(
+				'Limit or page is invalid',
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+		const filterObj = {
+			status: status
+		};
+		let obj = Object.keys(filterObj).length >= 1 ? {...filterObj} : {}
+		
+		return from(this.databaseService.user.findMany({
+			where: obj,
+			take: Number(limit),
+			skip: (Number(page) - 1) * Number(limit),
+			orderBy: {
+				id: order_by === 'desc' ? 'desc' : 'asc',
+			},
+		}))
 	}
 	async register(data: UserDTO) {
 		try {

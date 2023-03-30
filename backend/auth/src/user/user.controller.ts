@@ -1,4 +1,4 @@
-import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete, Patch } from '@nestjs/common';
+import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete, Patch, Query } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { of, switchMap } from 'rxjs';
 import { UserDTO } from './user.dto';
@@ -13,9 +13,14 @@ export class UserController {
     ) { }
     @Get('/')
     // @UseGuards(new AuthGuard())
-    showAllUsers() {
+    showAllUsers(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+        @Query('status') status: string = undefined,
+        @Query('order_by') order_by: string = 'desc',
+    ) {
         try {
-            return (this.userService.showAll()).pipe(
+            return (this.userService.showAll(page, limit,status, order_by)).pipe(
                 switchMap((data) => {
                     return of({
                         msg: 'Successfully',
