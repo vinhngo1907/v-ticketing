@@ -21,7 +21,7 @@ export class UserService implements OnModuleInit {
 			this.loggerService.error("An error while init the module exchange", err);
 		}
 	}
-	 showAll(){
+	showAll() {
 		// const users = await this.databaseService.user.findMany();
 		// console.log({users});
 		return from(this.databaseService.user.findMany())
@@ -29,7 +29,15 @@ export class UserService implements OnModuleInit {
 	async register(data: UserDTO) {
 		try {
 			const { username, password } = data;
-			
+			const user = await this.databaseService.user.findUnique({
+				where: {
+					username: username,
+				}
+			});
+			if (user) {
+				throw new HttpException('This user already exists', HttpStatus.BAD_REQUEST);
+			}
+
 			const newUser = await this.databaseService.user.create({
 				data: {
 					username,
@@ -47,7 +55,7 @@ export class UserService implements OnModuleInit {
 		try {
 			const { username, password } = data;
 			const user = await this.databaseService.user.findUnique({
-				where:{
+				where: {
 					// username: username
 				}
 			})
@@ -75,18 +83,37 @@ export class UserService implements OnModuleInit {
 			throw err;
 		}
 	}
-	async delete(id: number){
-		try{
+	async delete(id: number) {
+		try {
 			const deletedUser = await this.databaseService.user.delete({
-				where: {id: id}
+				where: { id: id }
 			});
 
-			if(!deletedUser){
+			if (!deletedUser) {
 				throw new HttpException('This user is not exists', HttpStatus.BAD_REQUEST);
 			}
-			
+
 			return deletedUser;
-		}catch(err: any){
+		} catch (err: any) {
+			throw err;
+		}
+	}
+
+	async block(id: number) {
+		try {
+			const blockedUser = await this.databaseService.user.update({
+				where: { id: id },
+				data: {
+					status: 'inactive'
+				}
+			});
+			if (!blockedUser) {
+				throw new HttpException('This user is not exists', HttpStatus.BAD_REQUEST);
+			}
+
+			return blockedUser;
+		} catch (err: any) {
+			console.log(err);
 			throw err;
 		}
 	}

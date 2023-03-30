@@ -1,4 +1,4 @@
-import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete, Patch } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { of, switchMap } from 'rxjs';
 import { UserDTO } from './user.dto';
@@ -11,10 +11,10 @@ export class UserController {
         // @Inject('CLIENT_SERVICE') private readonly client: ClientProxy
         // @Inject('PRODUCT_SERVICE') private readonly client1: ClientProxy
     ) { }
-    @Get()
+    @Get('/')
     // @UseGuards(new AuthGuard())
-    showAllUsers() { 
-        try{
+    showAllUsers() {
+        try {
             return (this.userService.showAll()).pipe(
                 switchMap((data) => {
                     return of({
@@ -23,7 +23,7 @@ export class UserController {
                     });
                 }),
             );
-        }catch(err: any){
+        } catch (err: any) {
             console.log(err);
             throw err;
         }
@@ -59,11 +59,11 @@ export class UserController {
     @UsePipes()
     async update(
         @Param('id') id: number,
-        @Body() ResponseBody: UserDTO){
-        try{
+        @Body() ResponseBody: UserDTO) {
+        try {
             const updatedUser = await this.userService.update(Number(id), ResponseBody);
             return updatedUser;
-        }catch(err: any){
+        } catch (err: any) {
             console.log(err);
             throw err;
         }
@@ -73,10 +73,23 @@ export class UserController {
     @UsePipes()
     async delete(
         @Param('id') id: number
-    ){
-        try{
+    ) {
+        try {
             return this.userService.delete(Number(id))
-        }catch(err: any){
+        } catch (err: any) {
+            console.log(err);
+            throw err;
+        }
+    }
+
+    @Patch('/block/:id')
+    @UsePipes()
+    async block(
+        @Param('id') id: number
+    ) {
+        try {
+            return this.userService.block(Number(id))
+        } catch (err: any) {
             console.log(err);
             throw err;
         }
