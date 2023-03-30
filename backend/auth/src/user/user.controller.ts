@@ -1,6 +1,7 @@
 import { Controller, Inject, UseGuards, Get, Post, UsePipes, Body, Param, Put, Delete, Patch, Query } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { of, switchMap } from 'rxjs';
+import { AuthGuard } from 'src/shared/auth.guard';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
 
@@ -8,11 +9,11 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(
         private userService: UserService,
-        // @Inject('CLIENT_SERVICE') private readonly client: ClientProxy
-        // @Inject('PRODUCT_SERVICE') private readonly client1: ClientProxy
+        @Inject('CLIENT_SERVICE') private readonly client: ClientProxy,
+        @Inject('PRODUCT_SERVICE') private readonly client1: ClientProxy
     ) { }
     @Get('/')
-    // @UseGuards(new AuthGuard())
+    @UseGuards(new AuthGuard())
     showAllUsers(
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 10,

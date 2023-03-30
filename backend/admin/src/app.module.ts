@@ -6,11 +6,11 @@ import { ProductModule } from './product/product.module';
 import { DatabaseModule } from './database/database.module';
 import { KafkaService } from './kafka/kafka.service';
 import { KafkaModule } from './kafka/kafka.module';
-import { AuthModule } from './auth/auth.module';
+import { DatabaseService } from './database/database.service';
 
 @Module({
-  imports: [UserModule, ProductModule, DatabaseModule, KafkaModule, AuthModule],
+  imports: [UserModule, ProductModule, DatabaseModule, KafkaModule],
   controllers: [AppController],
-  providers: [AppService, KafkaService],
+  providers: [AppService, KafkaService, DatabaseService],
 })
 export class AppModule {}
