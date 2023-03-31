@@ -1,14 +1,20 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { from, of } from 'rxjs';
 import { DatabaseService } from 'src/database/database.service';
+import { KafkaService } from 'src/kafka/kafka.service';
 
 @Injectable()
-export class ProductService {
+export class ProductService implements OnModuleInit{
     private loggerService: Logger
     constructor(
-        private databaseService: DatabaseService
+        private databaseService: DatabaseService,
+        private kafkaService: KafkaService
     ) {
         this.loggerService = new Logger()
+    }
+
+    async onModuleInit() {
+        // const consumerawait this.kafkaService.GetUser()
     }
 
     all(page: number = 1, limit: number = 10, order_by: string = 'desc') {
@@ -34,6 +40,17 @@ export class ProductService {
         const newProduct = await this.databaseService.product.create({
             data: { ...data, likes: 0 }
         });
+        await this.kafkaService.SendMessage('product_created', {
+            // type: 'sub',
+            id: newProduct.id,
+            step_count: 0,
+            status: "created product",
+            statusToUpdated: JSON.stringify(newProduct),
+            steps: [
+                'product_created'
+            ]
+        });
+
         return of({
             product: newProduct
         })

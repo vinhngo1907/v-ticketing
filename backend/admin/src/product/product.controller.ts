@@ -24,7 +24,10 @@ export class ProductController {
             })
         )
     }
-
+    @Get(':id')
+    async get(@Param('id') id: number) {
+        return this.productService.get(id)
+    }
     @Post()
     async create(@Body('title') title: string, @Body('image') image: string) {
         // const product = await this.productService.create({ title, image })
@@ -42,7 +45,6 @@ export class ProductController {
     async update(
         @Param('id') id: number,
         @Body('title') title: string, @Body('image') image: string) {
-        // const product = await this.productService.create({ title, image })
         // this.client.emit('product_created', product)
         return (await this.productService.update(id, { title, image })).pipe(
             map(data => {
@@ -65,5 +67,16 @@ export class ProductController {
                 });
             })
         );
+    }
+
+    @Post('/:id/like')
+    async like(@Param('id') id: number) {
+        const product = await this.productService.get(id)
+        console.log(product);
+
+        return this.productService.update(id, {
+            // likes: product.likes + 1
+        })
+
     }
 }
