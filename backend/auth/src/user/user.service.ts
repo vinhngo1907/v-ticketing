@@ -3,13 +3,15 @@ import { HttpService } from '@nestjs/axios';
 import { UserDTO } from './user.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { from } from 'rxjs';
+import { KafkaService } from 'src/kafka/kafka.service';
 
 @Injectable()
 export class UserService implements OnModuleInit {
 	private loggerService: Logger
 	constructor(
 		private httpService: HttpService,
-		private databaseService: DatabaseService
+		private databaseService: DatabaseService,
+		private kafkaService: KafkaService
 	) {
 		this.loggerService = new Logger();
 	}

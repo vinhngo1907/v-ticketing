@@ -1,12 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { from } from 'rxjs';
+import { KafkaService } from 'src/kafka/kafka.service';
 
 @Injectable()
-export class UserService {
+export class UserService implements OnModuleInit{
+    private loggerService:Logger
     constructor(
-        private datbaseService: DatabaseService
-    ) { }
+        private datbaseService: DatabaseService,
+        private kafkaService: KafkaService
+    ) { 
+        this.loggerService = new Logger();
+    }
+
+    async onModuleInit() {
+        try {
+            // ----------------- listening on topic update status exchange qoc --------------- //
+          
+        } catch (err) {
+            this.loggerService.error("An error while init the module exchange", err);
+        }
+    }
     showAllUser(
         page: number = 1,
         limit: number = 10,

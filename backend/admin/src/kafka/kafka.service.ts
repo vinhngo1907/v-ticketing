@@ -15,7 +15,13 @@ export class KafkaService {
                 username: process.env.USERNAME_KAFKA,
                 password: process.env.PASSWORD_KAFKA,
             } as any
-        })
+        });
+
+        this.consumer = this.kafkaClient.consumer({
+            groupId: 'admin-microservice'
+        });
+
+        this.producer = this.kafkaClient.producer();
     }
 
     async CheckAndCreateTopic(topic: string) {

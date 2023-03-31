@@ -9,22 +9,11 @@ import { KafkaService } from 'src/kafka/kafka.service';
 import { Logger } from 'kafkajs';
 
 @Controller('user')
-export class UserController implements OnModuleInit{
-    private loggerService: Logger;
-    constructor(private userService: UserService, 
+export class UserController {
+    constructor(private userService: UserService,
         // @Inject('CLIENT_SERVICE') private readonly client: ClientProxy
-        private databaseService: DatabaseService,
-        private httpService: HttpService,
-        private kafkaService: KafkaService
     ) { }
-    async onModuleInit() {
-        try {
-            // ----------------- listening on topic update status exchange qoc --------------- //
-          
-        } catch (err) {
-            this.loggerService.error("An error while init the module exchange", err);
-        }
-    }
+    
     @Get()
     @UseGuards(new AuthGuard())
     showAllUser(
