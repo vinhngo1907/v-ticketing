@@ -25,10 +25,43 @@ export class UserService implements OnModuleInit {
 				topic: 'update_profile_auth',
 				fromBeginning: true
 			});
+			await consumerProfileUser.run({
+				eachMessage: async ({ topic, partition, message }) => {
+					try {
+						this.loggerService.log("receiver topic " + topic);
+						const request: {
+							dataToUpdated: string,
+							id: number,
+							steps: string[],
+							step_count: number
+						} = JSON.parse(message.value as any);
+						// update profile
+						await this.databaseService.user.update({
+							where: {
+								id: Number(request.id)
+							},
+							data: {
+								...JSON.parse(request.dataToUpdated)
+							}
+						});
+
+						// nex step
+						const newTopic = request.steps[request.step_count];
+						request.step_count = Number(request.step_count) + 1;
+						if (newTopic) {
+							await this.kafkaService.SendMessage(newTopic, request as any);
+							return;
+						}
+					} catch (err: any) {
+						console.log("Failed to listen topic: ", topic)
+					}
+				}
+			});
 		} catch (err) {
-			this.loggerService.error("An error while init the module exchange", err);
+			this.loggerService.error("An error while init the module auth", err);
 		}
 	}
+
 	showAll(
 		page: number = 1,
 		limit: number = 10,
@@ -41,11 +74,12 @@ export class UserService implements OnModuleInit {
 				HttpStatus.BAD_REQUEST,
 			);
 		}
+		
 		const filterObj = {
 			status: status
 		};
-		let obj = Object.keys(filterObj).length >= 1 ? {...filterObj} : {}
-		
+		let obj = Object.keys(filterObj).length >= 1 ? { ...filterObj } : {}
+
 		return from(this.databaseService.user.findMany({
 			where: obj,
 			take: Number(limit),
@@ -95,18 +129,24 @@ export class UserService implements OnModuleInit {
 
 	async update(id: number, data: UserDTO) {
 		try {
+			const user = await this.databaseService.user.findUnique({
+				where: { id: Number(id) }
+			});
+
+			if (!user) {
+				throw new HttpException('This user is not exists', HttpStatus.BAD_REQUEST);
+			}
+
 			const updatedUser = await this.databaseService.user.update({
 				data: {
-					...data
+					...data,
+					password: user.password
 				},
 				where: {
 					id: id
 				}
 			});
 
-			if (!updatedUser) {
-				throw new HttpException('This user is not exists', HttpStatus.BAD_REQUEST);
-			}
 			return updatedUser;
 		} catch (err: any) {
 			throw err;

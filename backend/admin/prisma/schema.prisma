@@ -32,9 +32,10 @@ model product {
 }
 
 model client {
-    id            Int    @id @default(autoincrement())
-    raison_social String
-    address       String
-    email         String
-    telephone     BigInt
+    id            Int     @id @default(autoincrement())
+    raison_social String?
+    address       String?
+    num_sirette   String?
+    email         String?
+    telephone     String?
 }
