@@ -37,5 +37,5 @@ model client {
     address       String?
     num_sirette   String?
     email         String?
-    telephone     String?
+    telephone     String? 
 }
