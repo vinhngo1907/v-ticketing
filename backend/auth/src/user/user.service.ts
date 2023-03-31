@@ -15,11 +15,16 @@ export class UserService implements OnModuleInit {
 	) {
 		this.loggerService = new Logger();
 	}
-	
+
 	async onModuleInit() {
 		try {
-			// ----------------- listening on topic update status exchange qoc --------------- //
-
+			// ----------------- listening on topic update profile user --------------- //
+			const consumerProfileUser = this.kafkaService.GetUser('auth-microservice-profile');
+			await consumerProfileUser.connect();
+			await consumerProfileUser.subscribe({
+				topic: 'update_profile_auth',
+				fromBeginning: true
+			});
 		} catch (err) {
 			this.loggerService.error("An error while init the module exchange", err);
 		}

@@ -45,7 +45,7 @@ export class KafkaService {
         return sent
     }
 
-    async GetUser(groupId: string | undefined = undefined){
+    GetUser(groupId: string | undefined = undefined){
         if(groupId){
             return this.kafkaClient.consumer({
                 groupId: groupId
