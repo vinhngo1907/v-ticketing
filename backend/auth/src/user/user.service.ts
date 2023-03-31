@@ -2,8 +2,10 @@ import { Injectable, OnModuleInit, Logger, HttpException, HttpStatus } from '@ne
 import { HttpService } from '@nestjs/axios';
 import { UserDTO } from './user.dto';
 import { DatabaseService } from 'src/database/database.service';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { KafkaService } from 'src/kafka/kafka.service';
+import * as jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -74,7 +76,7 @@ export class UserService implements OnModuleInit {
 				HttpStatus.BAD_REQUEST,
 			);
 		}
-		
+
 		const filterObj = {
 			status: status
 		};
@@ -98,17 +100,20 @@ export class UserService implements OnModuleInit {
 				}
 			});
 			if (user) {
-				throw new HttpException('This user already exists', HttpStatus.BAD_REQUEST);
+				throw new HttpException('Invalid username/password', HttpStatus.BAD_REQUEST);
 			}
 
 			const newUser = await this.databaseService.user.create({
 				data: {
 					username,
-					password,
+					password: await bcrypt.hash(password, 10),
+					...data
 				}
 			});
 
-			return newUser;
+			return of({
+				user: { ...newUser, password: "" }
+			});
 		} catch (err: any) {
 			throw err;
 		}
@@ -119,9 +124,22 @@ export class UserService implements OnModuleInit {
 			const { username, password } = data;
 			const user = await this.databaseService.user.findUnique({
 				where: {
-					// username: username
+					username: username
 				}
-			})
+			});
+			if (!user || !(await bcrypt.compare(password, user.password))) {
+				throw new HttpException('This user is not exist', HttpStatus.BAD_REQUEST);
+			}
+
+			const token = await jwt.sign({ userId: user.id }, process.env.SECRET_JWT);
+			let objRes = Object.assign({
+				user,
+				token,
+			});
+
+			return of({
+				objRes
+			});
 		} catch (err: any) {
 			throw err;
 		}
