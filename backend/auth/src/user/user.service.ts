@@ -15,6 +15,7 @@ export class UserService implements OnModuleInit {
 	) {
 		this.loggerService = new Logger();
 	}
+	
 	async onModuleInit() {
 		try {
 			// ----------------- listening on topic update status exchange qoc --------------- //

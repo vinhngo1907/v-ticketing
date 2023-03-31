@@ -37,10 +37,24 @@ export class KafkaService {
     }
 
     async SendMessage(topic: string, message: string) {
-
+        await this.CheckAndCreateTopic(topic);
+        await this.producer.connect();
+        const sent = await this.producer.send({
+            topic,
+            messages: [
+                { value: JSON.stringify(message) }
+            ]
+        });
+        await this.producer.disconnect();
+        return sent;
     }
 
-    async GetUser() {
-
+    async GetUser(groupId: string | undefined = undefined) {
+        if (groupId) {
+            return this.kafkaClient.consumer({
+                groupId: groupId
+            });
+        }
+        return this.consumer;
     }
 }
