@@ -13,9 +13,9 @@ POST {{serverUrl}}/register
 Content-Type: application/json
 
 {
-  "email":"vinhtrungngo@yahoo.com",
-  "fullname":"Koo kuu",
-  "username": "immavigga",
+  "email":"vinhtrungngo1907@gmail.com",
+  "fullname":"Ngo Trung Vinh",
+  "username": "vinhngo97",
   "password": "123456"
 }
 ###

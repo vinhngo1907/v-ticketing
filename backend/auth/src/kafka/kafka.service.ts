@@ -34,7 +34,7 @@ export class KafkaService {
         await admin.disconnect();
     }
 
-    async SendMessage(topic: string, message: string) {
+    async SendMessage(topic: string, message: object) {
         await this.CheckAndCreateTopic(topic);
         await this.producer.connect();
         const sent = await this.producer.send({

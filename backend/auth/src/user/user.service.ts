@@ -5,7 +5,8 @@ import { DatabaseService } from 'src/database/database.service';
 import { from, of } from 'rxjs';
 import { KafkaService } from 'src/kafka/kafka.service';
 import * as jwt from "jsonwebtoken";
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
+const bcrypt = require("bcrypt");
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -24,7 +25,7 @@ export class UserService implements OnModuleInit {
 			const consumerProfileUser = this.kafkaService.GetUser('auth-microservice-profile');
 			await consumerProfileUser.connect();
 			await consumerProfileUser.subscribe({
-				topic: 'update_profile_auth',
+				topic: 'profile_user',
 				fromBeginning: true
 			});
 			await consumerProfileUser.run({
@@ -102,19 +103,20 @@ export class UserService implements OnModuleInit {
 			if (user) {
 				throw new HttpException('Invalid username/password', HttpStatus.BAD_REQUEST);
 			}
-
+			const passHashed = await bcrypt.hash(password, 10)
 			const newUser = await this.databaseService.user.create({
 				data: {
 					username,
-					password: await bcrypt.hash(password, 10),
+					password: passHashed,
 					...data
 				}
 			});
-
+			await this.kafkaService.SendMessage('profile_user', newUser)
 			return of({
 				user: { ...newUser, password: "" }
 			});
 		} catch (err: any) {
+			console.log(err);
 			throw err;
 		}
 	}
@@ -136,7 +138,7 @@ export class UserService implements OnModuleInit {
 				user,
 				token,
 			});
-
+		
 			return of({
 				objRes
 			});

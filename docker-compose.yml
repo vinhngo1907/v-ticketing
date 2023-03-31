@@ -24,13 +24,13 @@ services:
       - KAFKA_CFG_SASL_ENABLED_MECHANISMS=PLAIN
       - KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL=PLAIN
       - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
-  # mongo:
-  #   container_name: mongo
-  #   image: mongo
-  #   ports:
-  #     - 27017:27017
-  #   volumes:
-  #     - ./data/mongo:/data/db
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo:/data/db
   postgres:
     container_name: postgres
     image: postgres
@@ -59,4 +59,4 @@ services:
   #   ports:
   #     - 8080:8080
   #   volumes:
-  #     - .:/etc/krakend/
+  #     - ./krakend/
