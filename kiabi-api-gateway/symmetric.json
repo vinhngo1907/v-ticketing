@@ -1,0 +1,10 @@
+{
+    "keys": [
+        {
+            "kid": "teknix",
+            "kty": "oct",
+            "k": "cWFjY291bnRtYW5hZ2Vy",
+            "alg": "HS256"
+        }
+    ]
+}
