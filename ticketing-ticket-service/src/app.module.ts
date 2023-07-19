@@ -7,8 +7,14 @@ import { KafkaModule } from './kafka/kafka.module';
 import { DatabaseService } from './database/database.service';
 
 @Module({
-  imports: [UserModule, ProductModule, DatabaseModule, KafkaModule],
+  imports: [UserModule, ProductModule, 
+    // DatabaseModule, 
+    // KafkaModule
+  ],
   controllers: [],
-  providers: [KafkaService, DatabaseService],
+  providers: [
+    // KafkaService, 
+    // DatabaseService
+  ],
 })
 export class AppModule {}
