@@ -1,41 +1,41 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { from } from 'rxjs';
-import { KafkaService } from 'src/kafka/kafka.service';
+// import { KafkaService } from 'src/kafka/kafka.service';
 
 @Injectable()
-export class UserService implements OnModuleInit {
+export class UserService {
     private loggerService: Logger
     constructor(
         private datbaseService: DatabaseService,
-        private kafkaService: KafkaService
+        // private kafkaService: KafkaService
     ) {
         this.loggerService = new Logger();
     }
 
-    async onModuleInit() {
-        try {
-            // ----------------- listening on topic update status exchange qoc --------------- //
-            const consumerProfileUser = await this.kafkaService.GetUser('auth-microservice-profile');
-            await consumerProfileUser.connect();
-            await consumerProfileUser.subscribe({
-                topic: 'profile_user',
-                fromBeginning: true
-            });
-            await consumerProfileUser.run({
-                eachMessage: async ({ topic, partition, message }) => {
-                    try {
-                        this.loggerService.log("receiver topic: " + topic);
-                        console.log({ message: JSON.parse( message.value as any) });
-                    } catch (err) {
-                        this.loggerService.error("failed to listen topic: " + topic);
-                    }
-                }
-            })
-        } catch (err) {
-            this.loggerService.error("An error while init the module exchange", err);
-        }
-    }
+    // async onModuleInit() {
+    //     try {
+    //         // ----------------- listening on topic update status exchange qoc --------------- //
+    //         const consumerProfileUser = await this.kafkaService.GetUser('auth-microservice-profile');
+    //         await consumerProfileUser.connect();
+    //         await consumerProfileUser.subscribe({
+    //             topic: 'profile_user',
+    //             fromBeginning: true
+    //         });
+    //         await consumerProfileUser.run({
+    //             eachMessage: async ({ topic, partition, message }) => {
+    //                 try {
+    //                     this.loggerService.log("receiver topic: " + topic);
+    //                     console.log({ message: JSON.parse( message.value as any) });
+    //                 } catch (err) {
+    //                     this.loggerService.error("failed to listen topic: " + topic);
+    //                 }
+    //             }
+    //         })
+    //     } catch (err) {
+    //         this.loggerService.error("An error while init the module exchange", err);
+    //     }
+    // }
     showAllUser(
         page: number = 1,
         limit: number = 10,

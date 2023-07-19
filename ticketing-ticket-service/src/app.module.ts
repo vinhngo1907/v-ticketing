@@ -5,6 +5,8 @@ import { DatabaseModule } from './database/database.module';
 import { KafkaService } from './kafka/kafka.service';
 import { KafkaModule } from './kafka/kafka.module';
 import { DatabaseService } from './database/database.service';
+import { AppConfigService } from './config/appConfigService';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [UserModule, ProductModule, 
@@ -14,7 +16,9 @@ import { DatabaseService } from './database/database.service';
   controllers: [],
   providers: [
     // KafkaService, 
-    // DatabaseService
+    DatabaseService,
+    ConfigService,
+    AppConfigService
   ],
 })
 export class AppModule {}
