@@ -1,9 +1,0 @@
-::ng-deep .bg-gradient-danger {
-    background: linear-gradient(
-87deg
-, #5f36f5 0, #3672f5 100%) !important;
-}
-
-.editFont {
-    color:black
-}
