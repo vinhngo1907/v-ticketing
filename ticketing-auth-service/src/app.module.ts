@@ -8,17 +8,17 @@ import { HttpErrorFilter } from './shared/http.error.filter';
 import { LogginInterceptor } from './shared/logging.interceptor';
 
 @Module({
-  imports: [IdeaModule, UserModule, DatabaseModule, KafkaModule],
-  controllers: [],
-  providers: [,
-    {
-      provide: APP_FILTER,
-      useClass: HttpErrorFilter,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: LogginInterceptor,
-    },
-  ],
+    imports: [IdeaModule, UserModule, DatabaseModule, KafkaModule],
+    controllers: [],
+    providers: [,
+        {
+            provide: APP_FILTER,
+            useClass: HttpErrorFilter,
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: LogginInterceptor,
+        },
+    ],
 })
 export class AppModule { }
