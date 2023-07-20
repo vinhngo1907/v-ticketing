@@ -1,0 +1,67 @@
+{
+    "folders": [
+        {
+            "name": "ticketing-client-service",
+            "path": "packages/ticketing-client-service"
+        },
+        {
+            "name": "ticketing-auth-service",
+            "path": "packages/ticketing-auth-service"
+        },
+        {
+            "name": "docs",
+            "path": "docs"
+        },
+        {
+            "name": "ticketing-order-service",
+            "path": "packages/ticketing-order-service"
+        },
+        {
+            "name": "ticketing-payment-service",
+            "path": "packages/ticketing-payment-service"
+        },
+        {
+            "name": "ticketing-api-gateway",
+            "path": "packages/ticketing-api-gateway"
+        },
+        {
+            "name": "ticketing-ticket-service",
+            "path": "packages/ticketing-ticket-service"
+        }
+    ],
+    "settings": {
+        "eslint.workingDirectories": [
+            "packages/ticketing-api-gateway",
+            "packages/ticketing-auth-service",
+            "packages/ticketing-order-service",
+            "packages/ticketing-payment-service",
+            "packages/ticketing-ticket-service",
+            "packages/ticketing-expiration-service",
+        ],
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/bower_components": true,
+            "**/*.js": {
+                "when": "$(basename).ts"
+            },
+            "**/*.map": true
+        },
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/*.map": true,
+            "**/*.js": {
+                "when": "$(basename).ts"
+            }
+        },
+        "emmet.triggerExpansionOnTab": true,
+        "breadcrumbs.enabled": true,
+        "workbench.editor.enablePreview": false,
+        "eslint.packageManager": "yarn",
+        "npm.packageManager": "yarn",
+        "files.eol": "\n"
+    },
+}
