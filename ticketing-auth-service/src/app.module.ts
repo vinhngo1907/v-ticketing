@@ -6,6 +6,8 @@ import { KafkaModule } from './kafka/kafka.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http.error.filter';
 import { LogginInterceptor } from './shared/logging.interceptor';
+import { ConfigService } from '@nestjs/config';
+import { AppConfigService } from './config/appConfigService';
 
 @Module({
     imports: [IdeaModule, UserModule, DatabaseModule, KafkaModule],
@@ -19,6 +21,8 @@ import { LogginInterceptor } from './shared/logging.interceptor';
             provide: APP_INTERCEPTOR,
             useClass: LogginInterceptor,
         },
+        ConfigService,
+        AppConfigService
     ],
 })
 export class AppModule { }
