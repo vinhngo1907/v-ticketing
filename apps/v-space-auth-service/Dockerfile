@@ -1,13 +1,17 @@
-FROM node:12.16.2-alpine
+FROM node:14-alpine
 
-WORKDIR /app/customer
+RUN npm i -g pnpm
+
+WORKDIR /app
 
 COPY package.json .
 
+RUN npm install --slient
+
 COPY . .
 
-RUN npm install
+RUN pnpm build
 
-EXPOSE 8001
+EXPOSE 1337
 
-CMD [ "npm", "start" ]
+CMD ["pnpm","start"]
