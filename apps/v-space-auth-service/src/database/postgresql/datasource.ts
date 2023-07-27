@@ -1,5 +1,5 @@
 import ORMConfig from 'ormconfig';
-import { DataSource } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
 export type PostgresConnectionOptions = {
     /**
@@ -16,3 +16,16 @@ export type PostgresConnectionOptions = {
 const dataSourceOptions = {
     ...ORMConfig
 };
+
+export const primaryDataSource = new DataSource(dataSourceOptions);
+
+export const connectPostgreSqlDataSources = async (
+    options: PostgresConnectionOptions
+): Promise<void> => {
+    Object.assign(dataSourceOptions, {
+        dropSchema: options?.dropSchema || false,
+        migrationsRun: options?.migrationsRun || false
+    });
+    primaryDataSource.setOptions(dataSourceOptions);
+    await primaryDataSource.initialize();
+}
