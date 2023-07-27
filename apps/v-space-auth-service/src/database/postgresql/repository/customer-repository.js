@@ -1,4 +1,4 @@
-const { CustomerModel, AddressModel } = require("../models");
+const { CustomerModel, AddressModel } = require("../entity");
 
 class CustomerRepository {
     async CreateCustomer({ email, password, phone, salt }) {

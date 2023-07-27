@@ -1,4 +1,4 @@
-const { APP_SECRET, APP_ACTIVE_SECRET, APP_RF_SECRET } = require("../../configs");
+const { APP_SECRET, APP_ACTIVE_SECRET, APP_RF_SECRET } = require("../../application/configs");
 const jwt = require("jsonwebtoken");
 const { CustomerModel } = require("../../database/models");
 
