@@ -1,4 +1,1 @@
-module.exports = {
-    databaseConnection: require("./database"),
-    CustomerRepository: require("./repository/customer-repository")
-}
+export * from './datasource';
