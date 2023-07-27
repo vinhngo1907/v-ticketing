@@ -1,10 +1,7 @@
-const { ValidateAdmin } = require("../../utils");
+import cors from 'cors';
+import { Handler } from 'express';
 
-module.exports = async (req, res, next) => {
-    const isAadmin = await ValidateAdmin(req);
-
-    if (isAadmin) {
-        return next();
-    }
-    return res.status(403).json({ message: "Not Authorized" });
-}
+export const corsMiddleware = (options?: cors.CorsOptions): Handler =>
+    cors({
+        ...options,
+    });
