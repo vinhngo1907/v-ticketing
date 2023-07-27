@@ -25,7 +25,6 @@
     },
     "include": [
         "src",
-        "*.d.ts",
-        "error-handle.util.js"
+        "*.d.ts"
     ]
 }
