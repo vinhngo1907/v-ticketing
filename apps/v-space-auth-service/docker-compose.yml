@@ -1,0 +1,33 @@
+version: "3"
+networks:
+  auth-service:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: auth-postgres
+    restart: always
+    volumes:
+      - ./var/v-space/auth-service/data:/var/lib/postgresql/data
+    ports:
+      - '5251:5321'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=auth
+      - POSTGRES_PASSWORD=ntv123123
+  api-server:
+    container_name: api-server
+    build:
+      dockerfile: Dockerfile
+      context: ./v-space-auth-service
+    ports:
+      - '1002:1337'
+    depends_on:
+      - postgres
+    restart: always
+
+  dev-resources:
+    image: docksal/empty
+    depends_on:
+      - postgres
+    restart: 'no'
