@@ -1,13 +1,30 @@
-FROM node
+FROM kong/kong-gateway:2.8.1.0-alpine
 
-WORKDIR /app/products
+COPY ./plugins/ /usr/local/custom/kong/plugins/
 
-COPY package.json .
+COPY ./scripts/ .
 
-RUN npm install
+USER root
 
-COPY . .
+RUN ["chmod", "+x", "./setup.plugins.sh"]
+RUN ["./setup.plugins.sh"]
+WORKDIR /tmp
 
-EXPOSE 8002
+RUN luarocks pack kong-plugin-auth-middleware 1.0.1-1
 
-CMD [ "npm" , "start"]
+WORKDIR /
+
+ENV KONG_PLUGINS=kong-auth-middleware
+
+RUN luarocks install /tmp/kong-plugin-auth-middleware*
+
+
+RUN ["chmod", "+x", "./docker-entrypoint.sh"]
+
+USER kong
+
+ENTRYPOINT [ "./docker-entrypoint.sh"]
+
+STOPSIGNAL SIGQUIT
+
+CMD [ "kong" , "docker-start"]

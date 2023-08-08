@@ -1,48 +1,28 @@
-const STATUS_CODES = {
-    OK: 200,
-    BAD_REQUEST: 400,
-    UN_AUTHORISED: 403,
-    NOT_FOUND: 404,
-    INTERNAL_ERROR: 500,
+package = "kong-plugin-auth-middleware"
+
+version = "1.0.1-1"
+
+supported_platforms = {"linux", "macosx"}
+
+source = {
+  url = "git://github.com/vinhngo001/v-space.git",
+  branch = "master"
 }
 
-class AppError extends Error {
-    constructor(name, statusCode, description, isOperational, errorStack, logingErrorResponse) {
-        super(description);
-        Object.setPrototypeOf(this, new.target.prototype);
-        this.name = name;
-        this.statusCode = statusCode;
-        this.isOperational = isOperational;
-        this.errorStack = errorStack;
-        this.logingErrorResponse = logingErrorResponse;
-    }
+description = {
+  summary = "A Kong plugin that make GET auth request before proxying the original.",
+  license = "MIT"
 }
 
-// api Specific Errors
-class APIError extends AppError {
-    constructor(name, statusCode = STATUS_CODES.INTERNAL_ERROR, description = 'Internal Server Error', isOperational = true) {
-        super(name, statusCode, description, isOperational);
-    }
+dependencies = {
+  "lua ~> 5"
 }
 
-//404
-class BadRequestError extends AppError {
-    constructor(description = 'Bad request', logingErrorResponse) {
-        super('NOT FOUND', STATUS_CODES.NOT_FOUND, description, true, false, logingErrorResponse);
-    }
-}
-
-//400
-class ValidationError extends AppError {
-    constructor(description = 'Validation Error', errorStack) {
-        super('BAD REQUEST', STATUS_CODES.BAD_REQUEST, description, true, errorStack);
-    }
-}
-
-module.exports = {
-    AppError,
-    APIError,
-    BadRequestError,
-    ValidationError,
-    STATUS_CODES,
+build = {
+  type = "builtin",
+  modules = {
+    ["kong.plugins.kong-auth-middleware.access"] = "src/access.lua",
+    ["kong.plugins.kong-auth-middleware.handler"] = "src/handler.lua",
+    ["kong.plugins.kong-auth-middleware.schema"] = "src/schema.lua"
+  }
 }
