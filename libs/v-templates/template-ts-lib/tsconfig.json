@@ -4,11 +4,8 @@
         "target": "es2015",
         "module": "CommonJS",
         "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
         "resolveJsonModule": true,
         "strict": true,
-        "strictPropertyInitialization": false,
         "esModuleInterop": true,
         "lib": [
             "dom",
@@ -24,7 +21,6 @@
         ]
     },
     "include": [
-        "src",
-        "*.d.ts"
+        "src"
     ]
 }
