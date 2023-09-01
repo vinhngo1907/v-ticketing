@@ -1,5 +1,0 @@
-class ShoppingService{
-    constructor(){
-        
-    }
-}
