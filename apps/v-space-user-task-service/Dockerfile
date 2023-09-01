@@ -1,13 +1,17 @@
-FROM node
+FROM node:14
 
-WORKDIR /app/shopping
+RUN npm i -g pnpm
+
+WORKDIR /app
 
 COPY package.json .
 
-RUN npm install
+RUN npm install --slient
 
 COPY . .
 
-EXPOSE 8003
+RUN pnpm build
 
-CMD [ "npm" , "start"]
+EXPOSE 1337
+
+CMD [ "pnpm" , "start"]
