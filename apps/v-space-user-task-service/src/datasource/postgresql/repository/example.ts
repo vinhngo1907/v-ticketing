@@ -1,4 +1,4 @@
-const ShoppingModel = require("../models");
+const ShoppingModel = require("../entity");
 
 class ShoppingReposity{
 
