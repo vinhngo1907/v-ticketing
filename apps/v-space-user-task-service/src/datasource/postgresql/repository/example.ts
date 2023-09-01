@@ -1,6 +1,1 @@
-const ShoppingModel = require("../entity");
-
-class ShoppingReposity{
-
-}
-module.exports = ShoppingReposity; 
+import {createBaseRepository} from "@gln-libs/node-infrastructure";
