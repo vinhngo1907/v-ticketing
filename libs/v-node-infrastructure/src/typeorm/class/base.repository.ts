@@ -14,7 +14,7 @@ interface BaseRepository<Entity> {
 
 export type BaseRepositoryWithThis<Entity> = BaseRepository<Entity> &
     ThisType<Repository<Entity> & BaseRepository<Entity>>;
-    
+
 export const createBaseRepository = <
     Entity extends BaseEntity
 >(): BaseRepository<Entity> => ({
