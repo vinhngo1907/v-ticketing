@@ -1,0 +1,14 @@
+.git
+*.tar.gz
+# TODO: ignore dist when building Nx app inside Dockerfile
+# dist
+node_modules
+test
+fixtures
+coverage
+.env
+.env.*
+.clinic
+.scannerwork
+.vscode
+tmp
