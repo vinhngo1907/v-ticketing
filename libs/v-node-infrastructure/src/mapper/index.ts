@@ -1,4 +1,2 @@
-module.exports = {
-    ProductService: require("./product-service"),
-    CategoryService: require("./category-service")
-}
+export * from "./class";
+export * from "./decorator";
