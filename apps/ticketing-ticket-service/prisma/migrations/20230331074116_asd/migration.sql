@@ -1,6 +1,0 @@
--- AlterTable
-ALTER TABLE "client" ADD COLUMN     "num_sirette" TEXT,
-ALTER COLUMN "address" DROP NOT NULL,
-ALTER COLUMN "email" DROP NOT NULL,
-ALTER COLUMN "telephone" DROP NOT NULL,
-ALTER COLUMN "telephone" SET DATA TYPE TEXT;
