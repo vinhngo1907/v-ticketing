@@ -1,0 +1,107 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2022",
+        "lib": [
+            "es2022",
+            "esnext.disposable",
+            "dom"
+        ],
+        "module": "esnext",
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ticketing/microservices/auth/clients": [
+                "libs/microservices/auth/clients/src/index.ts"
+            ],
+            "@ticketing/microservices/auth/env": [
+                "libs/microservices/auth/env/src/index.ts"
+            ],
+            "@ticketing/microservices/auth/users": [
+                "libs/microservices/auth/users/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/constants": [
+                "libs/microservices/shared/constants/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/decorators": [
+                "libs/microservices/shared/decorators/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/env": [
+                "libs/microservices/shared/env/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/events": [
+                "libs/microservices/shared/events/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/fastify-passport": [
+                "libs/microservices/shared/fastify-passport/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/filters": [
+                "libs/microservices/shared/filters/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/guards": [
+                "libs/microservices/shared/guards/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/models": [
+                "libs/microservices/shared/models/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/mongo": [
+                "libs/microservices/shared/mongo/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/pipes": [
+                "libs/microservices/shared/pipes/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/redis": [
+                "libs/microservices/shared/redis/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/rmq": [
+                "libs/microservices/shared/rmq/src/index.ts"
+            ],
+            "@ticketing/microservices/shared/testing": [
+                "libs/microservices/shared/testing/src/index.ts"
+            ],
+            "@ticketing/ng/alert": [
+                "libs/ng/alert/src/index.ts"
+            ],
+            "@ticketing/ng/env": [
+                "libs/ng/env/src/index.ts"
+            ],
+            "@ticketing/ng/open-api": [
+                "libs/ng/open-api/src/index.ts"
+            ],
+            "@ticketing/shared/constants": [
+                "libs/shared/constants/src/index.ts"
+            ],
+            "@ticketing/shared/errors": [
+                "libs/shared/errors/src/index.ts"
+            ],
+            "@ticketing/shared/models": [
+                "libs/shared/models/src/index.ts"
+            ]
+        },
+        "typeRoots": [
+            "node_modules/@types",
+            "types"
+        ],
+        "types": [
+            "@ory/permission-namespace-types"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "tmp"
+    ],
+    "ts-node": {
+        "esm": true
+    }
+}
