@@ -1,0 +1,20 @@
+name: 'ticketing CD'
+
+on:
+  workflow_call:
+    inputs:
+      workflow_conclusion:
+        description: 'Status of workflow trigerring ticketing CD'
+        required: false
+        default: 'success'
+        type: string
+      tag:
+        description: 'Release tag, semver formatted prefixed with "v"'
+        required: false
+        default: ''
+        type: string
+      environment:
+        description: 'Deployment environment'
+        required: false
+        type: string
+        default: ''

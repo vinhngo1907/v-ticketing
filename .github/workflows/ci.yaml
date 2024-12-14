@@ -1,0 +1,25 @@
+name: 'ticketing CI'
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+      - docs
+      - '**/CHANGELOG.md'
+      # auto-generated
+      # - 'apps/**/openapi.json'
+      # - 'apps/**/package*.json'
+      # - 'libs/ng/shared/data-access/src/lib/generated/**'
+      - CHALLENGES.md
+      - exercises
+      - assets
+  pull_request:
+    branches:
+      - main
+    types:
+      - ready_for_review
+      - opened
+      - reopened
+      - synchronize
