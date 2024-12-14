@@ -99,7 +99,7 @@ services:
 
     # region micro services
   auth-service:
-    image: 'ghcr.io/getlarge/ticketing-auth:${AUTH_IMAGE_VERSION:-latest}'
+    image: 'ghcr.io/vinhngo1907/ticketing-auth:${AUTH_IMAGE_VERSION:-latest}'
     container_name: auth-service
     hostname: auth-service
     environment:
@@ -143,7 +143,7 @@ services:
       - 'dev'
 
   expiration-service:
-    image: 'ghcr.io/getlarge/ticketing-expiration:${EXPIRATION_IMAGE_VERSION:-latest}'
+    image: 'ghcr.io/vinhngo1907/ticketing-expiration:${EXPIRATION_IMAGE_VERSION:-latest}'
     container_name: expiration-service
     hostname: expiration-service
     environment:
@@ -179,7 +179,7 @@ services:
       - 'dev'
 
   orders-service:
-    image: 'ghcr.io/getlarge/ticketing-orders:${ORDERS_IMAGE_VERSION:-latest}'
+    image: 'ghcr.io/vinhngo1907/ticketing-orders:${ORDERS_IMAGE_VERSION:-latest}'
     container_name: orders-service
     hostname: orders-service
     environment:
@@ -222,7 +222,7 @@ services:
       - 'dev'
 
   payments-service:
-    image: 'ghcr.io/getlarge/ticketing-payments:${PAYMENTS_IMAGE_VERSION:-latest}'
+    image: 'ghcr.io/vinhngo1907/ticketing-payments:${PAYMENTS_IMAGE_VERSION:-latest}'
     container_name: payments-service
     hostname: payments-service
     environment:
@@ -268,7 +268,7 @@ services:
       - 'dev'
 
   tickets-service:
-    image: 'ghcr.io/getlarge/ticketing-tickets:${TICKETS_IMAGE_VERSION:-latest}'
+    image: 'ghcr.io/vinhngo1907/ticketing-tickets:${TICKETS_IMAGE_VERSION:-latest}'
     container_name: tickets-service
     hostname: tickets-service
     environment:
@@ -314,7 +314,7 @@ services:
 
   # region Frontend
   ng-client:
-    image: 'ghcr.io/getlarge/ticketing-ng-client:${CLIENT_IMAGE_VERSION:-latest}'
+    image: 'ghcr.io/vinhngo1907/ticketing-ng-client:${CLIENT_IMAGE_VERSION:-latest}'
     container_name: ng-client
     hostname: ng-client
     healthcheck:
