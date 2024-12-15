@@ -22,70 +22,70 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@v-ticketing/microservices/auth/clients": [
+            "@ticketing/microservices/auth/clients": [
                 "libs/microservices/auth/clients/src/index.ts"
             ],
-            "@v-ticketing/microservices/auth/env": [
+            "@ticketing/microservices/auth/env": [
                 "libs/microservices/auth/env/src/index.ts"
             ],
-            "@v-ticketing/microservices/auth/users": [
+            "@ticketing/microservices/auth/users": [
                 "libs/microservices/auth/users/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/constants": [
+            "@ticketing/microservices/shared/constants": [
                 "libs/microservices/shared/constants/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/decorators": [
+            "@ticketing/microservices/shared/decorators": [
                 "libs/microservices/shared/decorators/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/env": [
+            "@ticketing/microservices/shared/env": [
                 "libs/microservices/shared/env/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/events": [
+            "@ticketing/microservices/shared/events": [
                 "libs/microservices/shared/events/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/fastify-passport": [
+            "@ticketing/microservices/shared/fastify-passport": [
                 "libs/microservices/shared/fastify-passport/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/filters": [
+            "@ticketing/microservices/shared/filters": [
                 "libs/microservices/shared/filters/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/guards": [
+            "@ticketing/microservices/shared/guards": [
                 "libs/microservices/shared/guards/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/models": [
+            "@ticketing/microservices/shared/models": [
                 "libs/microservices/shared/models/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/mongo": [
+            "@ticketing/microservices/shared/mongo": [
                 "libs/microservices/shared/mongo/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/pipes": [
+            "@ticketing/microservices/shared/pipes": [
                 "libs/microservices/shared/pipes/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/redis": [
+            "@ticketing/microservices/shared/redis": [
                 "libs/microservices/shared/redis/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/rmq": [
+            "@ticketing/microservices/shared/rmq": [
                 "libs/microservices/shared/rmq/src/index.ts"
             ],
-            "@v-ticketing/microservices/shared/testing": [
+            "@ticketing/microservices/shared/testing": [
                 "libs/microservices/shared/testing/src/index.ts"
             ],
-            "@v-ticketing/ng/alert": [
+            "@ticketing/ng/alert": [
                 "libs/ng/alert/src/index.ts"
             ],
-            "@v-ticketing/ng/env": [
+            "@ticketing/ng/env": [
                 "libs/ng/env/src/index.ts"
             ],
-            "@v-ticketing/ng/open-api": [
+            "@ticketing/ng/open-api": [
                 "libs/ng/open-api/src/index.ts"
             ],
-            "@v-ticketing/shared/constants": [
+            "@ticketing/shared/constants": [
                 "libs/shared/constants/src/index.ts"
             ],
-            "@v-ticketing/shared/errors": [
+            "@ticketing/shared/errors": [
                 "libs/shared/errors/src/index.ts"
             ],
-            "@v-ticketing/shared/models": [
+            "@ticketing/shared/models": [
                 "libs/shared/models/src/index.ts"
             ]
         },
