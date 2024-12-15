@@ -9,12 +9,12 @@ on:
       - docs
       - '**/CHANGELOG.md'
       # auto-generated
-      # - 'apps/**/openapi.json'
-      # - 'apps/**/package*.json'
+      - 'apps/**/openapi.json'
+      - 'apps/**/package*.json'
       # - 'libs/ng/shared/data-access/src/lib/generated/**'
       - CHALLENGES.md
-      - exercises
-      - assets
+      # - exercises
+      # - assets
   pull_request:
     branches:
       - main
@@ -23,3 +23,78 @@ on:
       - opened
       - reopened
       - synchronize
+    paths-ignore:
+      - README.md
+      - docs
+      - '**/CHANGELOG.md'
+      # auto-generated
+      - 'apps/**/openapi.json'
+      - 'apps/**/package*.json'
+      - CHALLENGES.md
+      - exercises
+      - assets
+  release:
+    types:
+      - published
+      - edited
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-ci
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 20.x
+  CI_WORKFLOW: ci.yaml
+  CD_WORKFLOW: cd.yaml
+  BUILD_FOLDER: dist
+  BUILD_ARTIFACTS: build
+  COVERAGE_FOLDER: coverage
+  COVERAGE_ARTIFACTS: coverage
+  COVERAGE_APPS_UNIT_TESTS_ARTIFACTS: libs-unit-coverage
+  COVERAGE_APPS_E2E_TESTS_ARTIFACTS: apps-e2e-coverage
+  COVERAGE_LIBS_UNIT_TESTS_ARTIFACTS: apps-unit-coverage
+  COVERAGE_APPS_UNIT_TESTS_FOLDER: coverage/apps/unit
+  COVERAGE_APPS_E2E_TESTS_FOLDER: coverage/apps/e2e
+  COVERAGE_LIBS_UNIT_TESTS_FOLDER: coverage/libs
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true
+  NX_DISTRIBUTED_TASK_EXECUTION: true
+  NX_VERBOSE_LOGGING: true
+  NX_CLOUD_DISTRIBUTED_EXECUTION_STOP_AGENTS_ON_FAILURE: false
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_MAX_AGENTS: ${{ vars.NX_MAX_AGENTS || 8 }}
+  STEP_SET_FETCH_REF: 'Set fetch-ref'
+  STEP_SETUP_PROJECT: 'Setup node, checkout and install project dependencies'
+  # test jobs env. variables
+  NODE_ENV: ${{ vars.NODE_ENV || 'local' }}
+  LOG_LEVEL: ${{ vars.LOG_LEVEL || 'warn' }}
+  GLOBAL_API_PREFIX: api
+  JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
+  JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
+  JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
+  JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
+  JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+  SESSION_KEY: ${{ secrets.SESSION_KEY }}
+  STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+  STRIPE_ENDPOINT_SECRET: ${{ secrets.STRIPE_ENDPOINT_SECRET }}
+  PROXY_SERVER_URLS: http://localhost
+  FRONTEND_URL: http://localhost
+  AUTH_SERVICE_PORT: 3000
+  EXPIRATION_SERVICE_PORT: 3030
+  ORDERS_SERVICE_PORT: 3020
+  PAYMENTS_SERVICE_PORT: 3040
+  TICKETS_SERVICE_PORT: 3010
+  FRONTEND_PORT: 4200
+  ORY_BASE_PATH: ${{ secrets.ORY_BASE_PATH }}
+  ORY_API_KEY: ${{ secrets.ORY_API_KEY }}
+  ORY_ACTION_API_KEY: ${{ secrets.ORY_ACTION_API_KEY }}
+  RMQ_URL: http://localhost:5672
+  MONGODB_URI: mongodb://localhost:27017
+  REDIS_URL: redis://localhost:6379
+
+jobs:
+  # INIT
+  init:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' || github.event_name == 'push' || !github.event.pull_request.draft
+    timeout-minutes: 10

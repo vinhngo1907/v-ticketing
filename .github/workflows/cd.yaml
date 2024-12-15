@@ -18,3 +18,46 @@ on:
         required: false
         type: string
         default: ''
+  workflow_dispatch:
+    inputs:
+      workflow_conclusion:
+        description: 'Status of workflow trigerring ticketing CD'
+        required: false
+        default: 'success'
+      tag:
+        description: 'Release tag, semver formatted prefixed with "v"'
+        required: false
+        default: ''
+      environment:
+        description: 'Deployment environment'
+        required: false
+        type: choice
+        default: ''
+        options:
+          - development
+          - staging
+          - production
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-cd
+  cancel-in-progress: true
+
+env:
+  ACTIONS_STEP_DEBUG: ${{ vars.ACTIONS_STEP_DEBUG }}
+  NODE_VERSION: ${{ vars.NODE_VERSION || '20.x' }}
+  STEP_SETUP_PROJECT: 'Setup node, checkout and install project dependencies'
+  BUILD_FOLDER: dist
+  BUILD_ARTIFACTS: build
+  CI_WORKFLOW: ci.yaml
+  CD_WORKFLOW: cd.yaml
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.workflow_run.conclusion == 'success' ||
+      github.event.inputs.workflow_conclusion == 'success'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
