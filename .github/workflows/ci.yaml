@@ -9,12 +9,12 @@ on:
       - docs
       - '**/CHANGELOG.md'
       # auto-generated
-      # - 'apps/**/openapi.json'
-      # - 'apps/**/package*.json'
+      - 'apps/**/openapi.json'
+      - 'apps/**/package*.json'
       # - 'libs/ng/shared/data-access/src/lib/generated/**'
       - CHALLENGES.md
-      - exercises
-      - assets
+      # - exercises
+      # - assets
   pull_request:
     branches:
       - main
@@ -23,6 +23,20 @@ on:
       - opened
       - reopened
       - synchronize
+    paths-ignore:
+      - README.md
+      - docs
+      - '**/CHANGELOG.md'
+      # auto-generated
+      - 'apps/**/openapi.json'
+      - 'apps/**/package*.json'
+      - CHALLENGES.md
+      - exercises
+      - assets
+  release:
+    types:
+      - published
+      - edited
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-ci
