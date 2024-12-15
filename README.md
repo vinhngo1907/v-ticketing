@@ -1,7 +1,7 @@
 # V-Tickets
 
 This is a remix of the app built in the course [microservices with node.js and react](https://www.udemy.com/course/microservices-with-node-js-and-react/) starting at chapter 5.
-Source code for the course can be found [here](https://github.com/StephenGrider/ticketing).
+Source code for the course can be found [here](https://github.com/vinhngo1907/ticketing).
 
 This repository shows
 
