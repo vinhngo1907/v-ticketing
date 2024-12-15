@@ -98,3 +98,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'release' || github.event_name == 'push' || !github.event.pull_request.draft
     timeout-minutes: 10
+    steps:
+      - name: ${{ env.STEP_SET_FETCH_REF }}
+        id: fetch-ref
+        uses: haya14busa/action-cond@v1
+        with:
+          cond: ${{ github.ref == 'refs/head/main' }}
+          if_true: ${{ github.ref }}
+          if_false: ${{ github.event.pull_request.head.ref }}
