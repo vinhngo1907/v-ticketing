@@ -30,7 +30,7 @@
         "express-async-errors": "^3.1.1",
         "express-validator": "^6.6.0",
         "jsonwebtoken": "^9.0.0",
-        "mongoose": "^5.9.20",
+        "mongoose": "^6.13.6",
         "ts-node-dev": "^1.0.0-pre.49",
         "typescript": "^3.9.5"
     },
